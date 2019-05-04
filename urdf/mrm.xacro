@@ -1,6 +1,5 @@
 <?xml version = "1.0" ?>
 
-
 <robot name ="mrm" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 <!-- this is fixed -->
@@ -17,8 +16,8 @@
 
 	<joint name="base_link__link_01" type="revolute">
            <axis xyz="0 0 1" />
-           <limit effort="1000.0" lower="-3.14" upper="0.5" velocity="0.5" /> <!--  The lower and upper values define by how much we can rotate.   -->
-           <origin rpy="0 0 0" xyz="0 0 0.5" />
+           <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5" /> <!--  The lower and upper values define by how much we can rotate.   -->
+           <origin rpy="0 0 0" xyz="0 0 0.5" /> <!-- half of the height of the box- base_link -->
            <parent link="base_link" />
            <child link="link_01" />
     </joint>
@@ -32,6 +31,79 @@
 		</visual>
 	</link>
 
+<!-- between the links there has to be a joint -->
+
+	<joint name="link_01__link_02" type="revolute">
+           <axis xyz="0 1 0" />
+           <limit effort="1000.0" lower="0" upper="0.5" velocity="0.5" /> <!--  The lower and upper values define by how much we can rotate.   -->
+           <origin rpy="0 0 0" xyz="0 0 0.4" /> <!-- half of the height of the box- base_link -->
+           <parent link="link_01" />
+           <child link="link_02" />
+    </joint>
+           
+	<link name  = "link_02">
+		<visual>
+			<origin rpy = "0 0 0" xyz = "0 0 0.4"/>
+			<geometry>
+				<cylinder radius  = "0.15" length = "0.8"/>
+			</geometry>
+		</visual>
+	</link>
+
+<!-- between the links there has to be a joint -->
+
+	<joint name="link_02__link_03" type="revolute">
+           <axis xyz="0 1 0" />
+           <limit effort="1000.0" lower="0" upper="0.75" velocity="0.5" /> <!--  The lower and upper values define by how much we can rotate.   -->
+           <origin rpy="0 0 0" xyz="0 0 0.8" /> <!-- half of the height of the box- base_link -->
+           <parent link="link_02" />
+           <child link="link_03" />
+    </joint>
+           
+	<link name  = "link_03">
+		<visual>
+			<origin rpy = "0 0 0" xyz = "0 0 0.4"/>
+			<geometry>
+				<cylinder radius  = "0.15" length = "0.8"/>
+			</geometry>
+		</visual>
+	</link>
+<!-- between the links there has to be a joint -->
+
+	<joint name="link_03__link_04" type="revolute">
+           <axis xyz="0 1 0" />
+           <limit effort="1000.0" lower="0" upper="0.75" velocity="0.5" /> <!--  The lower and upper values define by how much we can rotate.   -->
+           <origin rpy="0 0 0" xyz="0 0 0.8" /> <!-- half of the height of the box- base_link -->
+           <parent link="link_03" />
+           <child link="link_04" />
+    </joint>
+           
+	<link name  = "link_04">
+		<visual>
+			<origin rpy = "0 0 0" xyz = "0 0 0.4"/>
+			<geometry>
+				<cylinder radius  = "0.15" length = "0.8"/>
+			</geometry>
+		</visual>
+	</link>
+<!-- between the links there has to be a joint -->
+
+	<joint name="link_04__link_05" type="revolute">
+           <axis xyz="0 0 1" />
+           <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5" /> <!--  The lower and upper values define by how much we can rotate.   -->
+           <origin rpy="0 0 0" xyz="0 0 0.8" /> <!-- half of the height of the box- base_link -->
+           <parent link="link_04" />
+           <child link="link_05" />
+    </joint>
+           
+	<link name  = "link_05">
+		<visual>
+			<origin rpy = "0 0 0" xyz = "0 0 0.125"/>
+			<geometry>
+				<cylinder radius  = "0.15" length = "0.25"/>
+			</geometry>
+		</visual>
+	</link>
 
 </robot>
 
