@@ -6,5 +6,5 @@
   <xacro:property name="link_03_name" value="link_03" />
   <xacro:property name="link_04_name" value="link_04" />
   <xacro:property name="link_05_name" value="link_05" />
-  <xacro:property name="camera_link" value="0.35" /> <!-- Size of square 'camera' box -->
+  <xacro:property name="camera_link" value="0.2" /> <!-- Size of square 'camera' box -->
 </robot>
