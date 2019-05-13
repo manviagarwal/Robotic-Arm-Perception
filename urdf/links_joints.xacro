@@ -32,6 +32,7 @@
       <actuator name="motor_${name}">
         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         <mechanicalReduction>1</mechanicalReduction>
+        <motorTorqueConstant>1.32</motorTorqueConstant>
       </actuator>
     </transmission>
   </xacro:macro>

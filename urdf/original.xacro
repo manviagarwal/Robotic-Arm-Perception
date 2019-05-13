@@ -4,7 +4,6 @@
 	<xacro:include filename="$(find mrm_decsription)/urdf/robot_parameters.xacro" />
 	<xacro:include filename="$(find mrm_decsription)/urdf/links_joints.xacro" />
 	
-	
 <!-- this is fixed -->
 	<m_link_box name="${link_00_name}"
               origin_rpy="0 0 0" origin_xyz="0 0 0.4"
@@ -18,36 +17,41 @@
 
 
 <!-- LEFT WHEEL -->
+<!-- <link name="left_wheel">
+        <pose>0.1 0.13 0.1 0 1.5707 1.5707</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.05</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+      </link> -->
 
 <m_link_cylinder name="left_wheel"
-              origin_rpy="1.5708 0 0" origin_xyz="-0 -0.55 0"
+              origin_rpy="1.5 0 0" origin_xyz="-0 -0.55 0"
               mass="57.906"
               ixx="12.679" ixy="0" ixz="0"
               iyy="12.679" iyz="0"
               izz="0.651"
               radius="0.25" length="0.25" />
-<gazebo reference="left_wheel">
-    <mu1 value="200.0" />
-    <mu2 value="100.0" />
-    <kp  value="5.0" />
-    <kd  value="1.0" />
-  </gazebo>
-
-  <gazebo reference="right_wheel">
-    <mu1 value="200.0" />
-    <mu2 value="100.0" />
-    <kp  value="5.0" />
-    <kd  value="1.0" />
-  </gazebo>
 <m_joint name="left_wheel__base_link" type="continuous"
            axis_xyz="0 1 0"
            origin_rpy="0 0 0" origin_xyz="0 0 -0.03"
            parent="base_link" child="left_wheel"
            limit_e="1000" limit_l="-3.14" limit_u="3.14" limit_v="0.5"/>
 
-
 <m_link_cylinder name="right_wheel"
-              origin_rpy="1.5708 0 0" origin_xyz="-0 0.55 0"
+              origin_rpy="1.5 0 0" origin_xyz="-0 0.55 0"
               mass="57.906"
               ixx="12.679" ixy="0" ixz="0"
               iyy="12.679" iyz="0"
@@ -77,7 +81,7 @@
               meshfile="package://mrm_decsription/meshes/Link1-v2.stl" 
               meshscale="0.001 0.001 0.001" />
 
-	<m_joint name="${link_01_name}__${link_02_name}" type="revolute"
+	<m_joint name="${link_00_name}__${link_02_name}" type="revolute"
            axis_xyz="0 1 0"
            origin_rpy="0 0 0" origin_xyz="0 0 0.4"
            parent="link_01" child="link_02"
@@ -134,186 +138,20 @@
               ixx="0.479" ixy="0" ixz="0"
               iyy="0.479" iyz="0"
               izz="0.204"
-              radius="0.15" length="0.25" />\
-
-     <!-- GRIPPER LINK AND LINK 5 JOINT -->
-
-
-    <joint name="joint4" type="revolute">
-		<parent link="${link_05_name}"/>
-		<child link="gripper_base"/>
-		<origin xyz="0 0 0.25" rpy="0 0 0"/>
-		<axis xyz="0 1 0"/>
-		<limit effort="100" velocity="100" lower="-1.5708" upper="1.5708"/>
-	</joint>
-	<transmission name="trans_joint4">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="joint4">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_joint4">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-        <motorTorqueConstant>1.32</motorTorqueConstant>
-      </actuator>
-    </transmission>
-
-
-     <!-- GRIPPER LINK -->
-
-     <link name="gripper_base">
-	<collision>
-		<origin xyz="0 0 0" rpy="1.5708 0 0"/>
-		<geometry>
-			<cylinder length="0.4" radius="0.04"/>
-		</geometry>
-	</collision>
-
-	<visual>
-		<origin xyz="0 0 0" rpy="1.5708 0 0"/>
-		<geometry>
-			<cylinder length="0.4" radius="0.04"/>
-		</geometry>
-	</visual>
-
-	<inertial>
-		<origin xyz="0 0 0" rpy="1.5708 0 0"/>
-		<mass value="0.4"/>
-		<inertia
-			ixx="0.05" ixy="0.0" ixz="0.0"
-			iyy="0.002" iyz="0.0"
-			izz="0.05"/>
-	</inertial>
-</link>
-
-<gazebo reference="gripper_base">
-	<material>Gazebo/Red</material>
-</gazebo>
-
-
-<!-- The two main gripper rods -->
-
-<!-- IT HAS a prismatic joint -->
-<!-- translating along y axis -->
-
-<joint name="joint5" type="prismatic">
-	<parent link="gripper_base"/>
-	<child link="gripper_rod1"/>
-	<origin xyz="0 0.16 0" rpy="0 0 0"/>
-	<axis xyz="0 1 0"/>
-	<limit effort="100" velocity="100" lower="-0.16" upper="0.0"/>
-</joint>
-<transmission name="trans_joint5">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="joint5">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_joint5">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-        <motorTorqueConstant>1.32</motorTorqueConstant>
-      </actuator>
-    </transmission>
-
-<!-- GRIPPER ROD 1 -->
-
-	<link name="gripper_rod1">
-	<collision>
-		<origin xyz="0 0 0.15" rpy="0 0 0"/>
-		<geometry>
-			<cylinder length="0.3" radius="0.04"/>
-		</geometry>
-	</collision>
-
-	<visual>
-		<origin xyz="0 0 0.15" rpy="0 0 0"/>
-		<geometry>
-			<cylinder length="0.3" radius="0.04"/>
-		</geometry>
-	</visual>
-
-	<inertial>
-		<origin xyz="0 0 0.15" rpy="0 0 0"/>
-		<mass value="0.2"/>
-		<inertia
-			ixx="0.02" ixy="0.0" ixz="0.0"
-			iyy="0.02" iyz="0.0"
-			izz="0.001"/>
-	</inertial>
-</link>
-
-<gazebo reference="gripper_rod1">
-	<material>Gazebo/Red</material>
-</gazebo>
-
-<!-- joint between gripper rod 2 and gripper base -->
-
-<!-- link6 and its prismatic joint6 relative to link4 -->
-
-<!-- translating along y axis -->
-<joint name="joint6" type="prismatic">
-	<parent link="gripper_base"/>
-	<child link="gripper_rod2"/>
-	<origin xyz="0 -0.16 0" rpy="0 0 0"/>
-	<axis xyz="0 1 0"/>
-	<limit effort="100" velocity="100" lower="0.0" upper="0.16"/>
-</joint>
-<transmission name="trans_joint6">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="joint6">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="motor_joint6">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-        <motorTorqueConstant>1.32</motorTorqueConstant>
-      </actuator>
-    </transmission>
-
+              radius="0.15" length="0.25" />
 <!-- camera link and joint -->
 
     <joint name="camera_joint" type="fixed">
     	<axis xyz="0 1 0" />
-    	<origin rpy="0 0 0" xyz="0.8 0 0.4"/>
+    	<origin rpy="0 0 0" xyz="0.7 0 0"/>
     	<parent link="${link_00_name}"/>
     	<child link="camera_link"/>
   	</joint>
 
-
- <!-- Link of gripper rod 2 -->
- 	<link name="gripper_rod2">
-	<collision>
-		<origin xyz="0 0 0.15" rpy="0 0 0"/>
-		<geometry>
-			<cylinder length="0.3" radius="0.04"/>
-		</geometry>
-	</collision>
-
-	<visual>
-		<origin xyz="0 0 0.15" rpy="0 0 0"/>
-		<geometry>
-			<cylinder length="0.3" radius="0.04"/>
-		</geometry>
-	</visual>
-
-	<inertial>
-		<origin xyz="0 0 0.15" rpy="0 0 0"/>
-		<mass value="0.2"/>
-		<inertia
-			ixx="0.02" ixy="0.0" ixz="0.0"
-			iyy="0.02" iyz="0.0"
-			izz="0.001"/>
-	</inertial>
-</link>
-
-<gazebo reference="gripper_rod2">
-	<material>Gazebo/Red</material>
-</gazebo>
-
  	 <!-- Camera -->
   	<link name="camera_link">
     	<collision>
-      		<origin xyz="0.8 0 0.4" rpy="0 0 0"/>
+      		<origin xyz="0.5 0 0" rpy="0 0 0"/>
       		<geometry>
     			<box size="${camera_link} ${camera_link} ${camera_link}"/>
       		</geometry>

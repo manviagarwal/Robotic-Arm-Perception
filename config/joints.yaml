@@ -4,6 +4,7 @@ joint_state_controller:
   publish_rate: 50
 
 # Position Controllers ---------------------------------------
+
 joint1_position_controller:
   type: effort_controllers/JointPositionController
   joint: base_link__link_01
@@ -24,3 +25,27 @@ joint5_position_controller:
   type: effort_controllers/JointPositionController
   joint: link_04__link_05
   pid: {p: 700.0, i: 50, d: 70.0}
+
+joint6_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: left_wheel__base_link
+    pid: {p: 2000.0, i: 100, d: 500.0}
+joint7_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: right_wheel__base_link
+    pid: {p: 50000, i: 100, d: 2000.0}
+joint8_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint4
+    pid: {p: 20000, i: 100, d: 2000.0}
+joint9_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint5
+    pid: {p: 50000, i: 100, d: 2000.0}
+joint10_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint6
+    pid: {p: 10000, i: 100, d: 2000.0}
+
+  # Position Controllers ---------------------------------------
+  
